@@ -1,1 +1,2 @@
-sort -rnk1 | head -n 11 | rev | cut  -d ' ' -f -1 | rev
+#!/bin/bash
+sort -rnk1 | head -n 11 | rev | cut  -d   -f -1 | rev
