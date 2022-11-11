@@ -3,4 +3,3 @@ for (( i=10; i>0; i--))
 do
 echo "Best School"
 done
-printf "\n"
