@@ -2,6 +2,7 @@
 # Script that prints Best School ten times using while loop
 
 i=0
+
 while [ $i -le 10 ]
 do
 	echo "Best School"
