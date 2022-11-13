@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Script that prints Best School ten times using while loop
+# A Script that prints Best School ten times using while loopi
 
-i=0
+i=1
 
 while [ $i -le 10 ]
 do
