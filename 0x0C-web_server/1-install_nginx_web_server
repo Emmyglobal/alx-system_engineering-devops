@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Installing nginx on web-01
+
+apt-get update
+apt-get -y install nginx
+# Nginx listens by default on port 80.
+# ufw firewall to get requests
+ufw allow 'Nginx HTTP'
+
+# Create Directory and Change Ownership
+mkdir -p /var/www/html
+chown -R "$USER":"USER" /var/www/html/index.html
+
+# Page Content
+echo "Hello World!" > /var/www/html/index.html
+service nginx start
+
