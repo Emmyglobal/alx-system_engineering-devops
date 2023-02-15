@@ -3,6 +3,7 @@
 
 apt-get update
 apt-get -y install nginx
+
 # Nginx listens by default on port 80.
 # ufw firewall to get requests
 ufw allow 'Nginx HTTP'
