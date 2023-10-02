@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Prints 1 to 20; "bad luck from China JKapan and Italy"
 counter=1
 while [ $counter -le 20 ]
 do
