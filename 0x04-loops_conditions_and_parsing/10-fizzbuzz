@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Displays 1 to 100 FizzBuzz for 3 or 5 and Fizz for 3 Buzz for 5
+for ((i=1; i<=100; i++)); do
+  # Check for multiples of both 3 and 5 first
+  if ((i % 3 == 0)) && ((i % 5 == 0)); then
+    echo "FizzBuzz"
+  # Check for multiples of 3
+  elif ((i % 3 == 0)); then
+    echo "Fizz"
+  # Check for multiples of 5
+  elif ((i % 5 == 0)); then
+    echo "Buzz"
+  # Display the number if none of the above conditions are met
+  else
+    echo "$i"
+  fi
+done
