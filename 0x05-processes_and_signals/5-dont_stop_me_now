@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 # Terminates Infinity process
-pkill -f "4-to_infinity_and_beyong"
+# Script kills another script running in another terminal
+# used pgrep -f: to find pid, then pass it to kill()
+
+kill "$(pgrep -f "4-to_infinity_and_beyond")"
