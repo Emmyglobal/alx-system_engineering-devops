@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Updates hostfile to change localhost to 127.0.0.2 and facebook.com to 8.8.8.8
+
+# sed cld be used for searching, find and replace, insertion or deletion
+# (-i) since sed just send results to stdout, this flag makes the
+# changes happen in place, i.e. inside the file we are working on
+# s/**/**/ ; s/ flag is used to search and replace
+# the /g flag tells sed to replace all occurrences of the given string
+#\t adds a tab and \n for newline
+
+cp /etc/hosts hosts.bkup # backing up the host file
+sed -i s/127.*$/127.0.0.2\\tlocalhost\\n8.8.8.8\\tfacebook.com/g hosts.bkup
+cp -f hosts.bkup /etc/hosts
