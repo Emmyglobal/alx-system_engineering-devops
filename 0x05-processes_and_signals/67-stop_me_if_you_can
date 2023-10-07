@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Script kills another script running in another terminal
+# used pkill -f: to find pid and kill it
+
+pkill -f "7-highlander"

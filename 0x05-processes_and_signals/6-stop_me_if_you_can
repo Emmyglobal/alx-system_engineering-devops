@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Kills another script running in another terminal
+# used pkill -f: to find pid & kill it
+
+pkill -f "4-to_infinity_and_beyond"

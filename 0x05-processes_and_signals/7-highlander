@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# message() is a function that echoes "I am invincible!!!"
+message() {
+	echo "I am invincible!!!"
+	# exit 0 can be added to stop the script, otherwise it continues to run the while loop below
+}
+	# using trap() to catch Termination signal and run the function message() instead
+trap "message" SIGTERM
+
+while true; do
+	echo "infinity and beyond"
+	sleep 2
+
+done
