@@ -1,14 +1,12 @@
-# Modify client config file
-include stdlib
+# Puppet script to create ssh config file
+file_line { 'configuration_file':
+  ensure => 'present',
+  path   => '/etc/ssh/ssh_config',
+  line   => '	IdentityFile ~/.ssh/school',
+}
 
-file_line {
-  'password_auth':
-  ensure	=> present,
-  path		=> '/etc/ssh/ssh_config',
-  line		=> '	PasswordAuthentication no'
-;
-'key_location':
-  ensure		=> present,
-  path			=> '/etc/ssh/ssh_config',
-  line			  '    IdentityFile ~/.ssh/school'
+file_line { 'no_password':
+  ensure => 'present',
+  path   => '/etc/ssh/ssh_config',
+  line   => '	PasswordAuthentication no',
 }
