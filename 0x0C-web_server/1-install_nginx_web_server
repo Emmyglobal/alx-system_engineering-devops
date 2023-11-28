@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Bash script that configures a new Ubuntu machine to respect below requirements (this script will be run on the server itself)
+# Istall nginx on my web-01
+# server
+# Nginx should be listening on port 80
+# when querying Nginx at its root / with a GET request(requesting a page) using curl, it must return a page that contains the string Hello world!
+
+# Update package list and install nginx
+sudo apt-get update
+sudo apt-get -y install nginx
+
+# Nginx listens by default on port 80.
+# ufw firewall to get requests
+ufw allow 'Nginx HTTP'
+
+# Create Directory and Change Ownership
+mkdir -p /var/www/html
+chown -R "$USER":"$USER" /var/www/html/index.html
+
+# Page Content
+echo "Hello World!" > /var/www/html/index.html
+service nginx start
