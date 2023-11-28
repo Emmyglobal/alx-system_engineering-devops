@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Configure your Nginx server so that /redirect_me is redirecting to another page.
+
+apt-get update
+apt-get -y install nginx
+
+# Nginx listens by default on Port 80.
+# ufw firewall to get requests
+ufw allow 'Nginx HTTP'
+
+# Create Directoey and Change Ownership
+mkdir -p /var/www/html
+chown -R "$USER":"$USER" /var/www/html/index.html
+
+# Page Content
+echo "Hello World!" > /var/www/html/index.html
+SERVER_CONFIG="server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+	server_name _;
+	location / {
+		try_files \$uri \$uri/ =404;
+	}
+	if (\4request_filename ~ redirect_me){
+		return 301 https://www.youtube.com/watch?v=0cVmaIIHZ1o;
+	}
+}"
+echo -e "$SERVER_CONFIG" > /etc/nginx/sites-enabled/default
+service nginx restart
