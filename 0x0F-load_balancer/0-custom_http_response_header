@@ -1,31 +1,85 @@
 #!/usr/bin/env bash
-# Configure Nginx so that its HTTP response contains a custom header (on web-01 and web-02)
-# The name of the custom HTTP header must be X-Served-By
-# The value of the custom HTTP header must be the hostname of the server Nginx is running on
-sudo apt-get update
-sudo apt-get -y install nginx
 
-# configure firewall to allow request through port 80
-sudo ufw allow 'Nginx HTTP'
+# Update package list
+sudo apt update
 
-sudo mkdir -p /var/www/html
+# Install Nginx
+sudo apt install -y nginx
 
-# change permissions to allow us to easily create files in this directory
-sudo chmod -R 755 /var/www
+# Set the hostname as a variable
+hostname=$(hostname)
 
-#  create the index page
-echo 'Hello World!' |sudo tee  /var/www/html/index.html
+# Create a backup of the default Nginx configuration file
+sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 
-# create a webpage for error 404
-echo "Ceci n'est pas une page" |sudo tee /var/www/html/404.html
+# Configure Nginx to include the custom header
+sudo bash -c "cat <<EOL > /etc/nginx/nginx.conf
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
 
-# code to configure redirect for a single page(/redirect_me) and add header to display hostname
-Name="server_name _;\n\tadd_header X-Served-By \$hostname;\n\trewrite ^\/redirect_me https:\/\/github.com\/Certifieddonnie permanent;"
-sudo sed -i "s/server_name _;/$Name/" /etc/nginx/sites-enabled/default
+events {
+    worker_connections 768;
+    # multi_accept on;
+}
 
-# code to configure redirect for 404 error page
-string_for_replacement="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
-sudo sed -i "s/listen 80 default_server;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+http {
 
-# restart the web server after updating the settings
+    ##
+    # Basic Settings
+    ##
+
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+
+    server_tokens off; # Hide Nginx version in the response header
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ##
+    # SSL Settings
+    ##
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+    ssl_prefer_server_ciphers on;
+
+    ##
+    # Logging Settings
+    ##
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    ##
+    # Gzip Settings
+    ##
+
+    gzip on;
+
+    # Custom Header Configuration
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        server_name _;
+
+        location / {
+            add_header X-Served-By $hostname;
+            # Other configuration...
+        }
+
+        # Additional server blocks and configurations...
+    }
+
+    # Additional http block configurations...
+}
+
+EOL"
+
+# Restart Nginx to apply the changes
 sudo service nginx restart
