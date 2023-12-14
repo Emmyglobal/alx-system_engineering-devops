@@ -1,0 +1,26 @@
+# What Happens When You type google.com in a browser and press Enter
+
+
+
+The context of typing google.com into a browser is simply typing in a URL. This article will show you how Domain Naming System(DNS) works. It is good to know that DNS is a distributed system of naming used to translate human-friendly domain names into numerical IP addresses, which are finally used by computers to identify each other on a network. We know that humans cannot assimilate numbers easily, here comes DNS who will savage this and convert this digits(IP addresses) to human readable language that is not numbers.
+
+##   Here is what DNS does:
+
+
+- 1. Name resolution: Translates human-readable to IP address.
+- 2. Hierarchy: It starts from the root domain followed by the top-level domains (TLDs) e.g .com and ends at second-level domains (SLDs) thereby creating a tree-like structure.
+- 3. DNS Servers: DNS resolver provided by Internet Service Provider or the one configured manually is being queried by your device when you type a domain name into a browser. This is done when DNS operates through a network of DNS servers.
+- 4. Authoritative DNS Servers: Is responsible for sorting and providing information about a specific domain. This helps to reveal the exact source of truth for a particular domain's IP address.
+- 5. Caching: DNS uses this to improve efficiency and lower the load on DNS servers. Its resolvers often cache the results of queries for a certain period. It can provide that information without querying the authoritative DNS server again it its resolver has recently looked up the IP address for a specific domain until the cached information expires.
+
+
+Firstly, the website is unknown. a new request is typed in using human readable language and entered. The browser checks if it exist and it knows about it. The Operating System (OS) is then queried to know where the name(google.com) can be found. This definitely can not be found in the OS. The OS then directs to where it can be found. Before asking the DNS resolver, the cache is searched to see if it knew the IP for google.com. Since they did not it, the resolver then handles the case.
+The resolver then embarks on a very long road trip which will take small amount of time. When the request of google.com gets to him, he checks his cache first and if it is not there checks the root. The resolver is usually the ISP(Internet Service Provider). All resolvers must always know where to locate the root server. The root server knows where to locate the top-level Domain (TLD) like .com.
+The resolver starts from the top of the Hierarchy with patience. The resolver requests for the IP address for the website google.com. The root server unable to provide the IP address of google.com directs the resolver to where he can find the TLD .COM. The resolver then save the .COM TLD address. This root server is just one of the 13 root name servers that exist today. The root servers sit at the top of the DNS hierarchy. They are scattered around the globe and operated by 12 independent organizations. They are named [letter].root-servers.net where [letter] ranges from A to M. This does not mean that we have only 13 physical servers to support the whole internet. Each organization provides multiple physical servers distributed around the globe.
+The coordination of most top-level domains (TLDs) belong to the Internet Corporation for Assigned Names and Numbers(ICANN). The .COM TLD was one of the first created in 1985 and today, it is the largest TLD on the internet. Other type of TLDs include:
+1. Country code TLDs. Usually their 2 letter ISO code e.g .ng, .jp e.t.c
+2. Internationalized country code TLDs. e.g .ykp 
+3. Generic TLDs: .NET, .ORG e.t.c
+4. Infrastructure TLDs: .ARPA, mostly used for reverse DNS lookups(from IP to URL). 
+The .COM doesn't know the IP address but reveals the name server to the resolver. It found the authoritative name server for the domain google.com.
+With the help of Domain Registrar, the .COM TLD server points the resolver to the authoritative name servers. When the domain is purchased, the domain registrar reserves the name and communicates to the TLD registry the authoritative name servers. There is usually more than one name server attached to any domain. The resolver is given the list in some unknown order and might query the first name server in the list. Because there is more of them, the work load is better distributed and the DNS zone availability is increased. The WHOIS query is run to know the authoritative name servers for the domain. The resolver receives and and saves the IP address of google.com and returns back to the OS.
