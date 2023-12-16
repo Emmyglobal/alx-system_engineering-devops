@@ -2,7 +2,7 @@
 # Bash script that configures a new Ubuntu machine to respect below requirements (this script will be run on the server itself)
 # Istall nginx on my web-01
 # server
-# Nginx should blsoe listening on port 80
+# Nginx should also be listening on port 80
 # when querying Nginx at its root / with a GET request(requesting a page) using curl, it must return a page that contains the string Hello world!
 
 # Update package list and install nginx
