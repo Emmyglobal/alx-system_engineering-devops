@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Configure your Nginx server so that /redirect_me is redirecting to another page.
+# Redirects the path /redirect_me to another path.
 
 apt-get update
 apt-get -y install nginx
@@ -8,26 +8,31 @@ apt-get -y install nginx
 # ufw firewall to get requests
 ufw allow 'Nginx HTTP'
 
-# Create Directoey and Change Ownership
+# Create Directory and Change Ownership
 mkdir -p /var/www/html
 chown -R "$USER":"$USER" /var/www/html/index.html
 
 # Page Content
 echo "Hello World!" > /var/www/html/index.html
 SERVER_CONFIG="server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-	root /var/www/html;
-	index index.html index.htm index.nginx-debian.html;
-	server_name _;
-	location / {
-		try_files \$uri \$uri/ =404;
-	}
-	if (\$request_filename ~ redirect_me){
-		return 301 https://www.youtube.com/watch?v=0cVmaIIHZ1o;
-	}
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                try_files \$uri \$uri/ =404;
+        }
+        if (\$request_filename ~ redirect_me){
+            return 301 https://www.youtube.com/watch?v=OcVmaIlHZ1o;
+        }
+
 }"
+
 echo -e "$SERVER_CONFIG" > /etc/nginx/sites-enabled/default
 
-sudo nginx -t
 service nginx restart
