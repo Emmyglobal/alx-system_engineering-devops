@@ -44,6 +44,7 @@ SERVER_CONFIG="server {
 
 }"
 
-echo -e "$SERVER_CONFIG" >/etc/nginx/sites-enabled/default
+echo -e "$SERVER_CONFIG" > /etc/nginx/sites-enabled/default
 
+sudo nginx -t
 service nginx restart
