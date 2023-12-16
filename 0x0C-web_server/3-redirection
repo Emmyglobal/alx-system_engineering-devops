@@ -23,9 +23,11 @@ SERVER_CONFIG="server {
 	location / {
 		try_files \$uri \$uri/ =404;
 	}
-	if (\4request_filename ~ redirect_me){
+	if (\$request_filename ~ redirect_me){
 		return 301 https://www.youtube.com/watch?v=0cVmaIIHZ1o;
 	}
 }"
 echo -e "$SERVER_CONFIG" > /etc/nginx/sites-enabled/default
+
+sudo nginx -t
 service nginx restart
