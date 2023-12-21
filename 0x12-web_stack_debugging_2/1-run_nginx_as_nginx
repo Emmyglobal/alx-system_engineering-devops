@@ -10,4 +10,4 @@ chmod 644 /etc/nginx/nginx.conf
 # apache may interfere with nginx so kill the process if it is running
 pkill apache2
 # now start the nginx service with the new nginx user
-nginx service nginx start
+sudo -u nginx service nginx start
