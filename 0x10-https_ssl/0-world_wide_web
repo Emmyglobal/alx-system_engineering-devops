@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# A bash script that will display information about subdomains.
+# A Script that will display information about subdomains.
+
 
 digging() {
-	dig=$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' '')
-	echo "$2 $dig" | awk '{print "The subdomain " $1 " is a " $7 " record and points "$8"."$9"."$10"."$11 }'
+    dig=$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' ' ')
+    echo "$2 $dig" | awk '{print "The subdomain " $1 " is a " $7 " record and points to "$8"."$9"."$10"."$11 }'
 }
 
 if [ "$#" -eq 1 ]
