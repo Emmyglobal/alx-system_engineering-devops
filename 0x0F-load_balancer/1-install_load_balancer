@@ -16,8 +16,8 @@ frontend emmy-frontend
 	default_backend donnie-backend
 backend donnioe-backend
 	balance roundrobin
-	server 80121-web-01 34.229.49.70 check
-	server 80121-web-02 54.172.112.10 check
+	server 80121-web-01 34.232.52.250 check
+	server 80121-web-02 100.24.237.16 check
 "
 echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
 
