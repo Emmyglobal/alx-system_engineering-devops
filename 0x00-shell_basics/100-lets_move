@@ -1,2 +1,3 @@
 #!/bin/bash
+ls -l /tmp/u
 mv /tmp/u/[A-Z]* /tmp/u 
