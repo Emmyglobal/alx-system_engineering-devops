@@ -1,6 +1,2 @@
 #!/bin/bash
-if ! id -u guillaume &>/dev/null; then
-	    echo "User 'guillaume' does not exist."
-	        exit 1
-fi
 find . -name hello -user guillaume -print0 | xargs -0 -r sudo chown betty
