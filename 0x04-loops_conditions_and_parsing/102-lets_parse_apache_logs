@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Filename: extract ip status 
+
+awk '{ print $1, $9 }' apache-access.log
